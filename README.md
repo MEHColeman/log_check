@@ -11,15 +11,23 @@ Assumptions:
 * A malformed line in the log file should be logged and rejected.
 * All requests from the same IP address count as 1 unique view.
 
-See NOTES.md for my development process notes.
+See [NOTES.md](NOTES.md) for my development process notes.
 
 ## Installation
 
-TODO: Write installation instructions here
+`bundle install`
 
 ## Usage
 
-TODO: Write usage instructions here
+~~~sh
+$ parser.rb [options] filename
+        --strict                     Only count valid IP addresses
+~~~
+
+Example:
+~~~sh
+$ ./parser.rb --strict resources/webserver.log
+~~~
 
 ## Development
 
