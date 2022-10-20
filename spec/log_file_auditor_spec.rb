@@ -31,5 +31,13 @@ module LogCheck
           ]
       end
     end
+
+    context 'with a different, short example log file' do
+      let(:file_location) { 'spec/fixtures/NON-EXISTANT-FILE.log' }
+
+      it 'raises an exception' do
+        expect{ subject.count_total_views }.to raise_error RuntimeError
+      end
+    end
   end
 end

@@ -8,9 +8,14 @@ module LogCheck
     end
 
     def count_total_views
-      File.readlines(@file_location).each do |line|
-         url, ip_address = line.split ' '
-         @visits[url] += 1
+      begin
+        File.readlines(@file_location).each do |line|
+          url, ip_address = line.split ' '
+          @visits[url] += 1
+        end
+      rescue SystemCallError => _file_error
+        $stderr.puts 'File error. File must be present and readable'
+        raise RuntimeError, 'File not read.'
       end
       @visits.sort_by { |url, visits| -visits }
     end
