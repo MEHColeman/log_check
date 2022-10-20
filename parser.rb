@@ -15,7 +15,8 @@ option_parser.parse!
 
 file = ARGV[0]
 begin
-  LogCheck::LogCheckPrinter.get_printer(file_location: file).output_total_views
+  LogCheck::LogCheckPrinter.get_printer(file_location: file,
+                                        strict: options[:strict]).output_total_views
 rescue
   puts option_parser
   exit 1
