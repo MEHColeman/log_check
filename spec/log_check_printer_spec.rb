@@ -38,11 +38,19 @@ module LogCheck
     ] }
 
     context 'with a correct audit log' do
-      let(:auditor) { instance_double('LogFileAuditor', count_total_views: valid_results) }
+      let(:auditor) { instance_double('LogFileAuditor',
+                                      count_total_views: valid_results,
+                                      count_unique_views: valid_results) }
 
-      it 'outputs a correct view count' do
+      it 'outputs a correctly formatted total view count' do
         expect{ subject.output_total_views }.to output(
           "/help_page/1 5 visits\n/test 3 visits\n/help_page/2 1 visits\n"
+        ).to_stdout
+      end
+
+      it 'outputs a correctly formatted unique view count' do
+        expect{ subject.output_unique_views }.to output(
+          "/help_page/1 5 unique views\n/test 3 unique views\n/help_page/2 1 unique views\n"
         ).to_stdout
       end
 

@@ -55,4 +55,21 @@ module LogCheck
       end
     end
   end
+
+  RSpec.describe LogFileAuditor, '#count_unique_views' do
+    subject { LogFileAuditor.new(file_location: file_location) }
+
+    context 'with a short example log file' do
+      let(:file_location) { 'spec/fixtures/simple_test.log' }
+
+      it 'returns a sorted array of addresses' do
+        expect( subject.count_unique_views ).to eq \
+          [
+            ['/help_page/1', 4],
+            ['/test', 1],
+            ['/help_page/2', 1]
+          ]
+      end
+    end
+  end
 end
