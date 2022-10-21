@@ -26,5 +26,8 @@ module LogCheck
       end
       @visits.sort_by { |url, visits| -visits }
     end
+    def count_unique_views
+      []
+    end
   end
 end

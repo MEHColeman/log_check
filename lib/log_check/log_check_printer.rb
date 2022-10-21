@@ -20,14 +20,18 @@ module LogCheck
     end
 
     def output_total_views
-      @log_file_auditor.count_total_views.each do | tuple |
-        puts "#{tuple[0]} #{tuple[1]} visits"
-      end
+      output_decorated_views(counts: @log_file_auditor.count_total_views,
+                             text_decoration: " visits")
+    end
+    def output_unique_views
+      output_decorated_views(counts: @log_file_auditor.count_unique_views,
+                             text_decoration: " unique views")
     end
 
-    def output_unique_views
-      @log_file_auditor.count_unique_views.each do | tuple |
-        puts "#{tuple[0]} #{tuple[1]} unique views"
+    private
+    def output_decorated_views(counts: , text_decoration:)
+      counts.each do | tuple |
+        puts "#{tuple[0]} #{tuple[1]}#{text_decoration}"
       end
     end
   end
