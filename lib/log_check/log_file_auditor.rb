@@ -2,10 +2,10 @@
 
 require_relative 'validators/simple_validator'
 
-## This Auditor will collate the information from the file whilst applying a
-# validation filter. This collated visit data is memoised, so that it can be
-# counted in two ways.
 module LogCheck
+  ## This Auditor will collate the information from the file whilst applying a
+  # validation filter. This collated visit data is memoised, so that it can be
+  # counted in two ways.
   class LogFileAuditor
     def initialize(file_location: ,
                    validator: SimpleValidator)

@@ -5,6 +5,9 @@ require_relative 'validators/simple_validator'
 require_relative 'validators/strict_validator'
 
 module LogCheck
+  # Outputs the stats for the provided log file.
+  # Raises an exception if the log file is not provided
+  # Useage: LogCheckPrinter.get_printer('file_path).output_total_views
   class LogCheckPrinter
     def self.get_printer(file_location: , strict: false)
       validator = strict ? StrictValidator : SimpleValidator

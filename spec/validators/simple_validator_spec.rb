@@ -2,7 +2,7 @@
 
 require 'log_check/validators/simple_validator'
 
-## NullValidator validates each line.
+## SimpleValidator validates each line.
 # It DOES NOT validate the ip_address for valid format.
 # Checks the whole line for two and only two values.
 module LogCheck

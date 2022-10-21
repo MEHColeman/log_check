@@ -1,7 +1,11 @@
 #frozen_string_literal: true
 
 module LogCheck
-  STRICT_LINE_MATCHER=/(?<url>^\/[(\d|\/|\w]+) (?<ip>(\d{1,3}).(\d{1,3}).(\d{1,3}).(\d{1,3}))$/
+  STRICT_LINE_MATCHER=/(?<url>^\/[(\/|\w]+) (?<ip>(\d{1,3}).(\d{1,3}).(\d{1,3}).(\d{1,3}))$/
+
+  ## StrictValidator validates each line.
+  # It DOES validate the ip_address for valid format.
+  # Checks the whole line for two and only two values.
   class StrictValidator
     def self.line_validate!(line)
       fail RuntimeError, 'Logfile format error' unless line.match?(STRICT_LINE_MATCHER)

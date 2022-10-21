@@ -3,7 +3,7 @@
 require 'log_check/validators/strict_validator'
 
 ## StrictValidator validates each line.
-# It DOES NOT validate the ip_address for valid format.
+# It DOES validate the ip_address for valid format.
 # Checks the whole line for two and only two values.
 module LogCheck
   RSpec.describe StrictValidator, '.line_validate!' do
