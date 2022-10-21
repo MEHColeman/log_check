@@ -24,5 +24,8 @@ module LogCheck
         puts "#{tuple[0]} #{tuple[1]} visits"
       end
     end
+
+    def output_unique_views
+    end
   end
 end
