@@ -59,7 +59,7 @@ module LogCheck
         let(:log_file_location) { 'spec/fixtures/simple_test.log' }
 
         it 'outputs no text, if the validated view count is 0' do
-          expect(subject).to eq('')
+          expect(subject).to eq("\n")
         end
       end
     end
