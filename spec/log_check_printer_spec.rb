@@ -49,7 +49,6 @@ module LogCheck
       it 'does not output anything to stderr' do
         expect { subject.output_total_views }.to_not output.to_stderr
       end
-
-      end
     end
   end
+end
