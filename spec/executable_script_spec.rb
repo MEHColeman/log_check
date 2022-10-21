@@ -18,6 +18,12 @@ module LogCheck
           "/help_page/1 5 visits\n/test 3 visits\n/help_page/2 1 visits"
         )
       end
+
+      it 'outputs a correct unique view count' do
+        expect(subject).to include(
+          "/help_page/1 4 unique views\n/test 1 unique views\n/help_page/2 1 unique views"
+        )
+      end
     end
 
     context 'without a log file given' do
@@ -38,7 +44,13 @@ module LogCheck
 
         it 'outputs a correct, validated view count' do
           expect(subject).to start_with(
-            "/help_page/1 3 visits\n/test 1 visits"
+            "/help_page/1 4 visits\n/test 1 visits"
+          )
+        end
+
+        it 'outputs a correct, validated unique visit count' do
+          expect(subject).to include(
+            "/help_page/1 3 unique views\n/test 1 unique views"
           )
         end
       end
