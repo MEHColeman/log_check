@@ -26,6 +26,9 @@ module LogCheck
     end
 
     def output_unique_views
+      @log_file_auditor.count_unique_views.each do | tuple |
+        puts "#{tuple[0]} #{tuple[1]} unique views"
+      end
     end
   end
 end
