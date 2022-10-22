@@ -50,9 +50,6 @@ happening, but this seems more of a command line tool than an application with
 it's own log file, so I decided not to. Instead, brief error messages are sent
 to STDERR. Using STDERR nearly gave me an aneurysm. Ask me why.
 
-Could extract specs common between `output_total_views` and `output_unique_views'
-into a shared example group, for extra robustness.
-
 The code analysis metrics look good. Ruby critic complains that parser.rb is
 not covered well, but I think this is beacause it is checked via a system call.
 There are tests that cover parser.rb's code. I'm not sure how to fix that nicely.

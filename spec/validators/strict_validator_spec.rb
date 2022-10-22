@@ -1,5 +1,6 @@
 #frozen_string_literal: true
 
+require_relative 'shared_examples/line_format_validator'
 require 'log_check/validators/strict_validator'
 
 ## StrictValidator parses and validates each line.
@@ -7,6 +8,12 @@ require 'log_check/validators/strict_validator'
 # Checks the whole line for two and only two values, the second being 4 sets
 # of digits.
 module LogCheck
+  RSpec.describe StrictValidator, 'line format validations' do
+    subject { StrictValidator }
+
+    it_behaves_like 'a line format validator'
+  end
+
   RSpec.describe StrictValidator, 'line parsing and IP address validation' do
     subject { StrictValidator }
 

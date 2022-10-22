@@ -1,5 +1,6 @@
 #frozen_string_literal: true
 
+require_relative 'shared_examples/line_format_validator'
 require 'log_check/validators/simple_validator'
 
 ## SimpleValidator parses and validates each line. Parse and Validation are
@@ -11,26 +12,7 @@ module LogCheck
   RSpec.describe SimpleValidator, 'line format validations' do
     subject { SimpleValidator }
 
-    let(:invalid_line_1) { '/test192.168.1.1' }
-    let(:invalid_line_2) { '/test 192.168.1.1 s' }
-    let(:invalid_line_3) { 'Clone 99' }
-    let(:valid_line) { '/test 999.999.999.999' }
-
-    it 'rejects less than two strings separated by a space' do
-      expect{subject.parse_data(invalid_line_1)}.to raise_error RuntimeError
-    end
-
-    it 'rejects more than two strings separated by a space' do
-      expect{subject.parse_data(invalid_line_2)}.to raise_error RuntimeError
-    end
-
-    it 'rejects random strings not in the url/IP address format' do
-      expect{subject.parse_data(invalid_line_3)}.to raise_error RuntimeError
-    end
-
-    it 'allows exactly two strings' do
-      expect{subject.parse_data(valid_line)}.to_not raise_error
-    end
+    it_behaves_like 'a line format validator'
   end
 
   RSpec.describe SimpleValidator, 'line parsing and IP address validations' do
