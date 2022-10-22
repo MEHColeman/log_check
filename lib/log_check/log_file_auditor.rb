@@ -34,11 +34,8 @@ module LogCheck
       @visits = Hash.new { |h,k| h[k]= Hash.new(0) }
       begin
         File.readlines(@file_location).each do |line|
-          @validator.line_validate!(line)
-          if @validator.ip_valid?(line)
-            url, ip_address = line.split ' '
-            @visits[url][ip_address] += 1
-          end
+          parsed, url, ip_address = @validator.parse_data(line)
+          @visits[url][ip_address] += 1 if parsed
         end
       rescue SystemCallError => _file_error
         $stderr.puts 'File error. File must be present and readable'

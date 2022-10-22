@@ -23,12 +23,11 @@ module LogCheck
 
       context 'with a different Validator' do
         let(:strict_validator) { double('NoneValidator',
-                                        'line_validate!' => true,
-                                        'ip_valid?' => false ) }
+                                        'parse_data' => [false,'a',1] ) }
         subject { LogFileAuditor.new(file_location: file_location,
                                      validator: strict_validator ) }
 
-        it 'will count less lines' do
+        it 'will count lines differently' do
           expect( subject.count_total_views ).to eq []
         end
       end
@@ -62,7 +61,7 @@ module LogCheck
     context 'with a short example log file' do
       let(:file_location) { 'spec/fixtures/simple_test.log' }
 
-      it 'returns a sorted array of addresses' do
+      it 'returns a sorted array of addresses and unique views' do
         expect( subject.count_unique_views ).to eq \
           [
             ['/help_page/1', 4],
