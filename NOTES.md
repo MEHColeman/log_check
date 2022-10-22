@@ -56,7 +56,3 @@ into a shared example group, for extra robustness.
 The code analysis metrics look good. Ruby critic complains that parser.rb is
 not covered well, but I think this is beacause it is checked via a system call.
 There are tests that cover parser.rb's code. I'm not sure how to fix that nicely.
-
-I probably should have combined the validator and line parsing in the Auditor
-into a Parser object. The validation followed by the counting method I'm doing
-is a bit messy, and the validators definitely needs refactoring! Sorry!

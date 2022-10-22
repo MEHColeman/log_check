@@ -3,20 +3,19 @@
 require_relative 'simple_validator'
 
 module LogCheck
-  ## StrictValidator validates each line.
-  # It DOES validate the ip_address for valid format.
-  # Checks the whole line for two and only two values.
+  ## StrictValidator parses and validates each line.
+  # It DOES validate the ip_address for valid format and valid octet values.
+  # Checks the whole line for two and only two values, the second being 4 sets
+  # of digits.
   class StrictValidator < SimpleValidator
-    def self.line_validate!(line)
-      super
-    end
+    def self.parse_data(line)
+      _, url, ip_address = super
 
-    def self.ip_valid?(line)
-      match = line.match(LINE_MATCHER)
-      return false unless match
-
-      ip = match[:ip]
-      no_octet_is_gt_255(ip) && no_octet_has_leading_zeros(ip)
+      [
+        no_octet_is_gt_255(ip_address) && no_octet_has_leading_zeros(ip_address),
+        url,
+        ip_address
+      ]
     end
 
     private
