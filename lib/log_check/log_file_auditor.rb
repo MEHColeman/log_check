@@ -16,9 +16,8 @@ module LogCheck
     def count_total_views
       collate_visits.
         map{|url, ip_visits| [url, ip_visits.
-                              map{|ip, count| count}.
-                              reduce(:+)]}.
-      sort_by { |url, total_visits| -total_visits }
+          map{|ip, count| count}.reduce(:+)]}.
+        sort_by { |url, total_visits| -total_visits }
     end
 
     def count_unique_views
@@ -34,8 +33,12 @@ module LogCheck
       @visits = Hash.new { |h,k| h[k]= Hash.new(0) }
       begin
         File.readlines(@file_location).each do |line|
-          parsed, url, ip_address = @validator.parse_data(line)
-          @visits[url][ip_address] += 1 if parsed
+          case @validator.parse_data(line)
+          in [true, url, ip_address]
+            @visits[url][ip_address] += 1
+          else
+            # Validator rejected line
+          end
         end
       rescue SystemCallError => _file_error
         $stderr.puts 'File error. File must be present and readable'
