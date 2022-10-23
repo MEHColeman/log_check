@@ -40,9 +40,6 @@
 For testing the executable, you could use Open3 to capture stdout and stderr
 from a child process, but it's OK as it is.
 
-I have previously used Slop instead of OpenParameter, but I don't see any
-benefit here.
-
 A `--help` option would be a nice addition.
 
 I would normally have a LOGGER object for logging more details of what's
