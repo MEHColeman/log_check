@@ -7,32 +7,36 @@
 
 module LogCheck
   RSpec.describe 'executable script' do
-    subject { `./parser.rb #{optional_args} #{log_file_location}` }
+    subject { system("./parser.rb #{optional_args} #{log_file_location}") }
     let(:optional_args) { '' }
 
     context 'with a short example log file' do
       let(:log_file_location) { 'spec/fixtures/simple_test.log' }
 
       it 'outputs a correct view count' do
-        expect(subject).to start_with(
+        expect{subject}.to output(a_string_including(
           "/help_page/1 5 visits\n/test 3 visits\n/help_page/2 1 visits"
-        )
+        )).to_stdout_from_any_process
       end
 
       it 'outputs a correct unique view count' do
-        expect(subject).to include(
+        expect{subject}.to output(a_string_including(
           "/help_page/1 4 unique views\n/test 1 unique views\n/help_page/2 1 unique views"
-        )
+        )).to_stdout_from_any_process
       end
     end
 
     context 'without a log file given' do
       let(:log_file_location) { '' }
 
-      it 'outputs an error and usage information' do
-        expect(subject).to start_with(
+      it 'outputs usage information' do
+        expect{subject}.to output(a_string_including(
           "Usage:"
-        )
+        )).to_stdout_from_any_process
+      end
+
+      it 'exits with a non-zero return code' do
+        expect(subject).to be_falsey
       end
     end
 
@@ -43,15 +47,15 @@ module LogCheck
         let(:log_file_location) { 'spec/fixtures/bad_ip_ranges_test.log' }
 
         it 'outputs a correct, validated view count' do
-          expect(subject).to start_with(
+          expect{subject}.to output(a_string_including(
             "/help_page/1 4 visits\n/test 1 visits"
-          )
+          )).to_stdout_from_any_process
         end
 
         it 'outputs a correct, validated unique visit count' do
-          expect(subject).to include(
+          expect{subject}.to output(a_string_including(
             "/help_page/1 3 unique views\n/test 1 unique views"
-          )
+          )).to_stdout_from_any_process
         end
       end
 
@@ -59,7 +63,7 @@ module LogCheck
         let(:log_file_location) { 'spec/fixtures/simple_test.log' }
 
         it 'outputs no text, if the validated view count is 0' do
-          expect(subject).to eq("\n")
+          expect{subject}.to output("\n").to_stdout_from_any_process
         end
       end
     end
