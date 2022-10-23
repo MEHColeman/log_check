@@ -34,11 +34,10 @@
    Strict validation will only allow ranges up to 255.255.255.255 without
    leading 0s.
    Invalid IPs will not be counted, but processing will continue.
+10. Refactor. Tidy up the validators. Create shared examples. Create custom
+   RSpec matcher.
 
 ## Comments
-
-For testing the executable, you could use Open3 to capture stdout and stderr
-from a child process, but it's OK as it is.
 
 A `--help` option would be a nice addition.
 
@@ -48,5 +47,5 @@ it's own log file, so I decided not to. Instead, brief error messages are sent
 to STDERR. Using STDERR nearly gave me an aneurysm. Ask me why.
 
 The code analysis metrics look good. Ruby critic complains that parser.rb is
-not covered well, but I think this is beacause it is checked via a system call.
-There are tests that cover parser.rb's code. I'm not sure how to fix that nicely.
+not covered well, but I think this is because it is checked via a system call.
+SimpleCov does recognise the code coverage correctly.
